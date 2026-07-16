@@ -1,0 +1,25 @@
+interface CredentialsFooterProps {
+  onPress: () => void;
+  title: string;
+  buttonLabel: string;
+}
+
+export default function CredentialsFooter({
+  onPress,
+  title,
+  buttonLabel,
+}: CredentialsFooterProps) {
+  return (
+    <div className="flex flex-row items-center justify-center gap-1 pb-10 text-sm">
+      <span className="text-[#8A8783]">{title}</span>
+
+      <button
+        type="button"
+        onClick={onPress}
+        className="font-semibold text-[#F67653]"
+      >
+        {buttonLabel}
+      </button>
+    </div>
+  );
+}

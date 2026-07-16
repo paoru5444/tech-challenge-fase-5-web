@@ -22,9 +22,9 @@ export default function TaskCard({ task }: TaskCardProps) {
         className="flex flex-row items-center justify-between"
         onClick={() => setIsCollapsed((prev) => !prev)}
       >
-        <div>
-          <p className="text-xs leading-normal font-bold">{title}</p>
-          <p className="text-xs leading-normal">{description}</p>
+        <div className="flex flex-col items-start">
+          <p className="text-md leading-normal font-bold">{title}</p>
+          <p className="text-sm leading-normal">{description}</p>
         </div>
 
         {isCollapsed ? (

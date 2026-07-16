@@ -1,10 +1,10 @@
 import { NavLink } from "react-router";
-import { navItems } from "./nav-items";
+import { tabBarItems } from "./nav-items";
 
 export default function Tabbar() {
   return (
     <nav className="fixed inset-x-0 bottom-0 z-10 flex items-center justify-around border-t border-[#EAEAEA] bg-white pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:hidden">
-      {navItems.map(({ to, label, icon: Icon }) => (
+      {tabBarItems.map(({ to, label, icon: Icon }) => (
         <NavLink
           key={to}
           to={to}
