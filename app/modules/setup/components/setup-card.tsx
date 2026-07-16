@@ -2,6 +2,7 @@ import TitleDisplay from "~/components/shared/title-display";
 import Card from "~/components/ui/card";
 import { preferencesNames } from "~/constants/conts";
 import type { SetupType } from "../store/slices";
+import Typography from "~/components/ui/typography";
 
 export type SetupListKey = Exclude<keyof SetupType, "feedback">;
 
@@ -41,7 +42,9 @@ export default function SetupCard<k extends SetupListKey>({
                   : "border border-[#EAEAEA]"
               }`}
             >
-              <span className="text-xs">{preferencesNames[String(item)]}</span>
+              <Typography variant="bodySmall">
+                {preferencesNames[String(item)]}
+              </Typography>
             </button>
           );
         })}

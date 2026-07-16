@@ -2,19 +2,22 @@ import { LogOut } from "lucide-react";
 import { NavLink } from "react-router";
 import { navGeralItems, navItems } from "./nav-items";
 import Divider from "../ui/divider";
+import Typography from "../ui/typography";
 
 export default function Sidebar() {
   return (
     <aside className="hidden w-64 shrink-0 flex-col justify-between border-r border-[#EAEAEA] bg-white px-4 py-6 md:flex">
       <div>
-        <p className="mb-8 px-3 text-xl leading-normal font-bold text-[#1A1918]">
+        <Typography as="p" variant="h2" className="mb-8 px-3 text-[#1A1918]">
           Senior Ease
-        </p>
+        </Typography>
 
         <Divider size={32} />
 
         <div className="flex flex-col gap-6">
-          <h1 className="text-black font-medium text-base">Menu</h1>
+          <Typography as="p" variant="title" className="text-black">
+            Menu
+          </Typography>
 
           <nav className="flex flex-col gap-1">
             {navItems.map(({ to, label, icon: Icon }) => (
@@ -40,7 +43,9 @@ export default function Sidebar() {
         <Divider size={32} />
 
         <div className="flex flex-col gap-6">
-          <h1 className="text-black font-medium text-base">Geral</h1>
+          <Typography as="p" variant="title" className="text-black">
+            Geral
+          </Typography>
 
           <nav className="flex flex-col gap-1">
             {navGeralItems.map(({ to, label, icon: Icon }) => (

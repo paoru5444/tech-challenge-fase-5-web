@@ -1,6 +1,7 @@
 import type { InputHTMLAttributes } from "react";
 import type { Control, FieldValues, Path } from "react-hook-form";
 import { Controller } from "react-hook-form";
+import Typography from "./typography";
 
 interface InputProps<T extends FieldValues> extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -33,7 +34,7 @@ export function InputControl<T extends FieldValues>({
         disablePaddingVertical ? "" : "py-4"
       } ${className ?? ""}`}
     >
-      {label && <span className="text-sm font-normal text-black">{label}</span>}
+      {label && <Typography variant="label">{label}</Typography>}
 
       <Controller
         control={control}
@@ -53,7 +54,11 @@ export function InputControl<T extends FieldValues>({
         )}
       />
 
-      {error && <span className="text-red-600">* {error?.message}</span>}
+      {error && (
+        <Typography as="span" variant="bodySmall" className="text-red-600">
+          * {error?.message}
+        </Typography>
+      )}
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import TitleDisplay from "~/components/shared/title-display";
 import Card from "~/components/ui/card";
+import Typography from "~/components/ui/typography";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import * as actions from "../store/actions";
 import { selectFontSize } from "../store/selector";
@@ -42,7 +43,7 @@ export default function FontSizeSetupCard() {
                   : "border border-[#EAEAEA]"
               }`}
             >
-              <span className="text-xs">{size}</span>
+              <Typography variant="bodySmall">{size}</Typography>
             </button>
           );
         })}

@@ -1,4 +1,5 @@
 import type { IUser } from "~/domain/entities/user";
+import Typography from "./typography";
 
 export interface AvatarProps {
   user?: IUser | null;
@@ -13,10 +14,10 @@ export default function Avatar({ user, letter, containerClassName }: AvatarProps
     <div
       className={`flex h-9 w-9 items-center justify-center rounded-full bg-[#F67653] ${containerClassName ?? ""}`}
     >
-      <span className="text-base font-bold tracking-[-0.4px] text-white">
+      <Typography as="span" variant="title" className="text-white">
         {user && !letter && userFirstLetter}
         {letter && !user && letter}
-      </span>
+      </Typography>
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import Typography from "./typography";
+
 type ProgressBarColor = "success" | "primary" | "danger";
 
 interface ProgressBarProps {
@@ -40,9 +42,13 @@ export function ProgressBar({
       </div>
 
       {showLabel && (
-        <span className="ml-2 min-w-8 text-right text-xs leading-4 font-normal text-[#8A8783]">
+        <Typography
+          as="span"
+          variant="bodySmall"
+          className="ml-2 min-w-8 text-right leading-4 text-[#8A8783]"
+        >
           {Math.round(clamped)}%
-        </span>
+        </Typography>
       )}
     </div>
   );

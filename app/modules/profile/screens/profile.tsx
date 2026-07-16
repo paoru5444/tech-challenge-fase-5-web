@@ -8,6 +8,7 @@ import Button from "~/components/ui/button";
 import Card from "~/components/ui/card";
 import Divider from "~/components/ui/divider";
 import { preferencesNames } from "~/constants/conts";
+import Typography from "~/components/ui/typography";
 import * as actions from "~/modules/auth/store/actions";
 import { selectUser } from "~/modules/auth/store/selectors";
 import { selecPreferences } from "~/modules/setup/store/selector";
@@ -71,7 +72,7 @@ export default function ProfileScreen() {
                 {index > 0 && <Divider size={12} />}
 
                 <div className="flex flex-row items-center justify-between">
-                  <span className="text-xs font-bold">{name}</span>
+                  <Typography variant="label">{name}</Typography>
 
                   <Badge text={badgeName} />
                 </div>

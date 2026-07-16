@@ -9,6 +9,7 @@ import Header from "~/components/ui/header";
 import { InputControl } from "~/components/ui/input-control";
 import { useTask } from "../hooks/useTask";
 import PageHeader from "~/components/shared/page-header";
+import Typography from "~/components/ui/typography";
 
 export default function Home() {
   const { control, errors, handleSubmit, addTask, getTasks, tasks } = useTask();
@@ -45,9 +46,7 @@ export default function Home() {
         />
 
         <div className="flex flex-col gap-4 pt-8">
-          <span className="text-lg font-semibold tracking-[-0.4px]">
-            Minhas atividades
-          </span>
+          <Typography variant="subtitle">Minhas atividades</Typography>
 
           {tasks.length > 0 &&
             tasks.map((task) => <TaskCard task={task} key={task.id} />)}
@@ -63,9 +62,7 @@ export default function Home() {
       </button>
 
       <BottomSheet open={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
-        <span className="text-xl font-bold tracking-[-0.2px]">
-          Nova atividade
-        </span>
+        <Typography variant="h2">Nova atividade</Typography>
 
         <div className="flex w-full flex-col gap-6">
           <InputControl

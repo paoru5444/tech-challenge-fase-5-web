@@ -5,6 +5,7 @@ import { useTask } from "~/modules/home/hooks/useTask";
 import Card from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { ProgressBar } from "../ui/progress-bar";
+import Typography from "../ui/typography";
 
 interface TaskCardProps {
   task: ITask;
@@ -23,8 +24,8 @@ export default function TaskCard({ task }: TaskCardProps) {
         onClick={() => setIsCollapsed((prev) => !prev)}
       >
         <div className="flex flex-col items-start">
-          <p className="text-md leading-normal font-bold">{title}</p>
-          <p className="text-sm leading-normal">{description}</p>
+          <Typography variant="subtitle">{title}</Typography>
+          <Typography variant="bodySmall">{description}</Typography>
         </div>
 
         {isCollapsed ? (
@@ -42,12 +43,12 @@ export default function TaskCard({ task }: TaskCardProps) {
 
               <div className="flex flex-row items-center gap-2">
                 <Checkbox checked={true} onChange={() => {}} />
-                <p>Introdução à biblioteca Jest</p>
+                <Typography variant="body">Introdução à biblioteca Jest</Typography>
               </div>
 
               <div className="flex flex-row items-center gap-2">
                 <Checkbox checked={false} onChange={() => {}} />
-                <p>Introdução à biblioteca Jest</p>
+                <Typography variant="body">Introdução à biblioteca Jest</Typography>
               </div>
             </>
           )}
@@ -61,9 +62,9 @@ export default function TaskCard({ task }: TaskCardProps) {
                 }
                 className="flex h-7.5 items-center justify-center rounded-2xl bg-[#39A304]"
               >
-                <span className="font-semibold text-white">
+                <Typography variant="subtitle" className="text-white">
                   Concluir atividade
-                </span>
+                </Typography>
               </button>
             )}
 
@@ -72,9 +73,9 @@ export default function TaskCard({ task }: TaskCardProps) {
               onClick={() => deleteTask(id)}
               className="flex h-7.5 items-center justify-center rounded-2xl bg-[#F05069]"
             >
-              <span className="font-semibold text-white">
+              <Typography variant="subtitle" className="text-white">
                 Deletar atividade
-              </span>
+              </Typography>
             </button>
           </div>
         </>

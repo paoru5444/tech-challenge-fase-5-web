@@ -1,3 +1,5 @@
+import Typography from "../ui/typography";
+
 interface BannerProps {
   value?: string;
   title: string;
@@ -16,12 +18,16 @@ export default function Banner({ title, value, imageUrl }: BannerProps) {
         imageUrl ? "" : "bg-[#E8825A]"
       }`}
     >
-      <div className="flex h-15 w-15 items-center justify-center self-end rounded-full bg-white/25">
-        <span className="text-[28px] font-bold text-white">{value}</span>
+      <div className="flex h-15 w-15 items-center justify-center self-end rounded-full bg-white/25 p-4">
+        <Typography variant="h1" className="text-white">
+          {value}
+        </Typography>
       </div>
 
       <div>
-        <span className="text-lg font-bold text-white">{title}</span>
+        <Typography variant="h2" className="text-white">
+          {title}
+        </Typography>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import type { AvatarProps } from "~/components/ui/avatar";
 import Avatar from "../ui/avatar";
+import Typography from "../ui/typography";
 
 interface TitleDisplayProps extends AvatarProps {
   title?: string;
@@ -24,11 +25,9 @@ export default function TitleDisplay({
       )}
 
       <div className="flex w-[90%] flex-col gap-1">
-        {title && (
-          <p className="text-xs leading-normal font-bold">{title}</p>
-        )}
+        {title && <Typography variant="subtitle">{title}</Typography>}
 
-        {description && <p className="text-xs leading-normal">{description}</p>}
+        {description && <Typography variant="body">{description}</Typography>}
       </div>
     </div>
   );

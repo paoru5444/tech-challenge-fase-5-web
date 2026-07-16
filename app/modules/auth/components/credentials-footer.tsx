@@ -1,3 +1,5 @@
+import Typography from "~/components/ui/typography";
+
 interface CredentialsFooterProps {
   onPress: () => void;
   title: string;
@@ -11,7 +13,9 @@ export default function CredentialsFooter({
 }: CredentialsFooterProps) {
   return (
     <div className="flex flex-row items-center justify-center gap-1 pb-10 text-sm">
-      <span className="text-[#8A8783]">{title}</span>
+      <Typography as="span" variant="body" className="text-[#8A8783]">
+        {title}
+      </Typography>
 
       <button
         type="button"

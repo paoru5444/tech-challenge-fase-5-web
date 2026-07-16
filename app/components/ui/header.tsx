@@ -1,6 +1,7 @@
 import { selectUser } from "~/modules/auth/store/selectors";
 import { useAppSelector } from "~/store/hooks";
 import Avatar from "./avatar";
+import Typography from "./typography";
 
 export default function Header() {
   const user = useAppSelector(selectUser);
@@ -10,13 +11,9 @@ export default function Header() {
       <Avatar user={user} />
 
       <div>
-        <p className="text-base leading-normal font-semibold tracking-[-0.4px]">
-          Olá, {user?.displayName}
-        </p>
+        <Typography variant="subtitle">Olá, {user?.displayName}</Typography>
 
-        <p className="text-[10px] leading-normal font-medium tracking-[-0.2px] text-[#828282]">
-          Quinta. 11 de Junho
-        </p>
+        <Typography variant="caption">Quinta. 11 de Junho</Typography>
       </div>
     </div>
   );

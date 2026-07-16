@@ -1,3 +1,5 @@
+import Typography from "./typography";
+
 interface CheckboxProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
@@ -41,8 +43,10 @@ export function Checkbox({
       </span>
 
       {label ? (
-        <span
-          className={`ml-2 shrink text-left text-sm leading-5 font-normal ${
+        <Typography
+          as="span"
+          variant="body"
+          className={`ml-2 shrink text-left leading-5 ${
             disabled
               ? "text-[#B0ADA7]"
               : checked && strikethroughWhenChecked
@@ -51,7 +55,7 @@ export function Checkbox({
           }`}
         >
           {label}
-        </span>
+        </Typography>
       ) : null}
     </button>
   );

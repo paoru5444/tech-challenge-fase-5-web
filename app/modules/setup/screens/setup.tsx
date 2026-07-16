@@ -15,6 +15,7 @@ import {
   selectSpacementSize,
 } from "../store/selector";
 import type { FeedbackType, SetupType } from "../store/slices";
+import Typography from "~/components/ui/typography";
 
 export default function SetupScreen() {
   const dispatch = useAppDispatch();
@@ -154,8 +155,8 @@ export default function SetupScreen() {
               className="flex min-h-10 cursor-pointer items-center justify-between rounded-[10px] p-1.5"
             >
               <div className="flex-1">
-                <p className="text-xs font-bold">{item.title}</p>
-                <p className="text-xs">{item.description}</p>
+                <Typography variant="subtitle">{item.title}</Typography>
+                <Typography variant="body">{item.description}</Typography>
               </div>
 
               <Switch

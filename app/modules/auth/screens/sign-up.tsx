@@ -1,5 +1,6 @@
 import Button from "~/components/ui/button";
 import { InputControl } from "~/components/ui/input-control";
+import Typography from "~/components/ui/typography";
 import AuthLayout from "../components/auth-layout";
 import CredentialsFooter from "../components/credentials-footer";
 import { useSignUp } from "../hooks/useSignUp";
@@ -10,9 +11,9 @@ export default function SignUpScreen() {
 
   return (
     <AuthLayout>
-      <h1 className="text-2xl font-bold tracking-[-0.2px] text-black">
+      <Typography variant="h1" className="text-black">
         Cadastre-se
-      </h1>
+      </Typography>
 
       <div className="flex flex-col">
         <InputControl
