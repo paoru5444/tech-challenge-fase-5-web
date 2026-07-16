@@ -24,7 +24,7 @@ export function BottomSheet({ open, onClose, children }: BottomSheetProps) {
           type="button"
           aria-label="Fechar"
           onClick={onClose}
-          className="absolute top-4 right-4 text-[#8A8783]"
+          className="absolute top-4 right-4 text-[#8A8783] contrast:text-black"
         >
           <X size={20} />
         </button>

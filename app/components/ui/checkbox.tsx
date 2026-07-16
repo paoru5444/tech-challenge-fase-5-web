@@ -36,7 +36,7 @@ export function Checkbox({
         className={`flex items-center justify-center rounded border-[1.5px] ${
           checked
             ? "border-[#3B82F6] bg-[#3B82F6]"
-            : "border-[#E5E1DC] bg-white"
+            : "border-[#E5E1DC] bg-white contrast:border-black"
         }`}
       >
         {checked && <span className="font-bold text-white">✓</span>}
@@ -48,9 +48,9 @@ export function Checkbox({
           variant="body"
           className={`ml-2 shrink text-left leading-5 ${
             disabled
-              ? "text-[#B0ADA7]"
+              ? "text-[#B0ADA7] contrast:text-black"
               : checked && strikethroughWhenChecked
-                ? "text-[#8A8783] line-through"
+                ? "text-[#8A8783] line-through contrast:text-black"
                 : "text-[#1A1918]"
           }`}
         >

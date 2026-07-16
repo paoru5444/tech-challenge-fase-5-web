@@ -13,7 +13,11 @@ export default function CredentialsFooter({
 }: CredentialsFooterProps) {
   return (
     <div className="flex flex-row items-center justify-center gap-1 pb-10 text-sm">
-      <Typography as="span" variant="body" className="text-[#8A8783]">
+      <Typography
+        as="span"
+        variant="body"
+        className="text-[#8A8783] contrast:text-black"
+      >
         {title}
       </Typography>
 

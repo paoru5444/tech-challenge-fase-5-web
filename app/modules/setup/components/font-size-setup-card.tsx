@@ -37,10 +37,10 @@ export default function FontSizeSetupCard() {
               key={size}
               type="button"
               onClick={() => onSelectFontSize(size)}
-              className={`flex h-10 flex-col justify-end rounded-[10px] bg-[#EAEAEA] p-1.5 text-left ${
+              className={`flex h-10 flex-col justify-end rounded-[10px] bg-[#EAEAEA] p-1.5 text-left contrast:bg-white ${
                 isCurrentFontSize
                   ? "border-2 border-[#39A304]"
-                  : "border border-[#EAEAEA]"
+                  : "border border-[#EAEAEA] contrast:border-black"
               }`}
             >
               <Typography variant="bodySmall">{size}</Typography>

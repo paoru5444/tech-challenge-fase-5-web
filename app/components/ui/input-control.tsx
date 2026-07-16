@@ -48,7 +48,7 @@ export function InputControl<T extends FieldValues>({
             placeholder={placeholder}
             autoCapitalize={autoCapitalize}
             type={type}
-            className="h-10 rounded-[10px] border-2 border-[#EAEAEA] bg-white px-4 text-black"
+            className="h-10 rounded-[10px] border-2 border-[#EAEAEA] bg-white px-4 text-black contrast:border-black"
             {...rest}
           />
         )}

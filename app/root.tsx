@@ -12,7 +12,9 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import { selectContrastLevel } from "./modules/setup/store/selector";
 import { persistor, store } from "./store";
+import { useAppSelector } from "./store/hooks";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,11 +47,23 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+function ContrastGate({ children }: { children: React.ReactNode }) {
+  const contrastLevel = useAppSelector(selectContrastLevel);
+
+  return (
+    <div data-contrast={contrastLevel === "high" ? "high" : undefined}>
+      {children}
+    </div>
+  );
+}
+
 export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <Outlet />
+        <ContrastGate>
+          <Outlet />
+        </ContrastGate>
       </PersistGate>
     </Provider>
   );

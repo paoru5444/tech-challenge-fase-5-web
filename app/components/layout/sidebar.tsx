@@ -6,7 +6,7 @@ import Typography from "../ui/typography";
 
 export default function Sidebar() {
   return (
-    <aside className="hidden w-64 shrink-0 flex-col justify-between border-r border-[#EAEAEA] bg-white px-4 py-6 md:flex">
+    <aside className="hidden w-64 shrink-0 flex-col justify-between border-r border-[#EAEAEA] bg-white px-4 py-6 contrast:border-black md:flex">
       <div>
         <Typography as="p" variant="h2" className="mb-8 px-3 text-[#1A1918]">
           Senior Ease
@@ -29,7 +29,7 @@ export default function Sidebar() {
                   `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium ${
                     isActive
                       ? "bg-[#FBE6DA] text-[#D66F47]"
-                      : "text-[#4A4844] hover:bg-[#F0EDE8]"
+                      : "text-[#4A4844] contrast:text-black hover:bg-[#F0EDE8]"
                   }`
                 }
               >
@@ -57,7 +57,7 @@ export default function Sidebar() {
                   `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium ${
                     isActive
                       ? "bg-[#FBE6DA] text-[#D66F47]"
-                      : "text-[#4A4844] hover:bg-[#F0EDE8]"
+                      : "text-[#4A4844] contrast:text-black hover:bg-[#F0EDE8]"
                   }`
                 }
               >

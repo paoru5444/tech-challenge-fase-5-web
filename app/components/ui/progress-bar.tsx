@@ -33,7 +33,7 @@ export function ProgressBar({
     <div className={`flex w-full items-center ${className ?? ""}`}>
       <div
         style={{ height, borderRadius: height / 2 }}
-        className="flex-1 overflow-hidden bg-[#F0EDE8]"
+        className="flex-1 overflow-hidden bg-[#F0EDE8] contrast:bg-[#C4C4C4]"
       >
         <div
           style={{ width: `${clamped}%`, height, borderRadius: height / 2 }}
@@ -45,7 +45,7 @@ export function ProgressBar({
         <Typography
           as="span"
           variant="bodySmall"
-          className="ml-2 min-w-8 text-right leading-4 text-[#8A8783]"
+          className="ml-2 min-w-8 text-right leading-4 text-[#8A8783] contrast:text-black"
         >
           {Math.round(clamped)}%
         </Typography>

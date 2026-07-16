@@ -42,7 +42,7 @@ const variantStyles: Record<TypographyVariant, string> = {
   body: "font-normal",
   bodySmall: "font-normal",
   label: "font-bold",
-  caption: "leading-normal font-medium tracking-[-0.2px] text-[#828282]",
+  caption: "leading-normal font-medium tracking-[-0.2px] text-[#828282] contrast:text-black",
 };
 
 const variantElements: Record<TypographyVariant, ElementType> = {

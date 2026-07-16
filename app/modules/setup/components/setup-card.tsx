@@ -36,10 +36,10 @@ export default function SetupCard<k extends SetupListKey>({
               key={String(item)}
               type="button"
               onClick={() => onSelectItem(item)}
-              className={`flex h-10 flex-col justify-end rounded-[10px] bg-[#EAEAEA] p-1.5 text-left ${
+              className={`flex h-10 flex-col justify-end rounded-[10px] bg-[#EAEAEA] p-1.5 text-left contrast:bg-white ${
                 isCurrentItem
                   ? "border-[3px] border-[#39A304]"
-                  : "border border-[#EAEAEA]"
+                  : "border border-[#EAEAEA] contrast:border-black"
               }`}
             >
               <Typography variant="bodySmall">

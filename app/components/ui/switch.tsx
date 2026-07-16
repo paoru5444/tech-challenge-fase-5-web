@@ -17,7 +17,7 @@ export function Switch({ checked, onChange, disabled = false }: SwitchProps) {
         onChange(!checked);
       }}
       className={`flex h-6 w-11 shrink-0 items-center rounded-full p-0.5 transition-colors disabled:opacity-50 ${
-        checked ? "bg-[#39A304]" : "bg-[#C4C4C4]"
+        checked ? "bg-[#39A304]" : "bg-[#C4C4C4] contrast:bg-black"
       }`}
     >
       <span
