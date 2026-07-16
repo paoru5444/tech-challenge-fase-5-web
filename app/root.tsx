@@ -12,7 +12,11 @@ import { PersistGate } from "redux-persist/integration/react";
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import { selectContrastLevel } from "./modules/setup/store/selector";
+import {
+  selectContrastLevel,
+  selectSpacementSize,
+} from "./modules/setup/store/selector";
+import type { SetupType } from "./modules/setup/store/slices";
 import { persistor, store } from "./store";
 import { useAppSelector } from "./store/hooks";
 
@@ -47,11 +51,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ContrastGate({ children }: { children: React.ReactNode }) {
+const spacingScale: Record<SetupType["spacementSize"], string> = {
+  small: "0.2rem",
+  default: "0.25rem",
+  big: "0.325rem",
+};
+
+function AccessibilityGate({ children }: { children: React.ReactNode }) {
   const contrastLevel = useAppSelector(selectContrastLevel);
+  const spacementSize = useAppSelector(selectSpacementSize);
 
   return (
-    <div data-contrast={contrastLevel === "high" ? "high" : undefined}>
+    <div
+      data-contrast={contrastLevel === "high" ? "high" : undefined}
+      style={{ "--spacing": spacingScale[spacementSize] } as React.CSSProperties}
+    >
       {children}
     </div>
   );
@@ -61,9 +75,9 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ContrastGate>
+        <AccessibilityGate>
           <Outlet />
-        </ContrastGate>
+        </AccessibilityGate>
       </PersistGate>
     </Provider>
   );
