@@ -2,19 +2,47 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import type { ITask } from "~/domain/entities/task";
 import { useTask } from "~/modules/home/hooks/useTask";
+import { selectExtraConfirmation } from "~/modules/setup/store/selector";
+import { useAppSelector } from "~/store/hooks";
 import Card from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { ProgressBar } from "../ui/progress-bar";
 import Typography from "../ui/typography";
+import Modal from "./modal";
 
 interface TaskCardProps {
   task: ITask;
 }
 
+type PendingAction = "complete" | "delete" | null;
+
 export default function TaskCard({ task }: TaskCardProps) {
   const { id, title, description, checked, steps } = task;
   const [isCollapsed, setIsCollapsed] = useState(true);
+  const [pendingAction, setPendingAction] = useState<PendingAction>(null);
   const { deleteTask, updateTask } = useTask();
+  const extraConfirmation = useAppSelector(selectExtraConfirmation);
+
+  const runAction = (action: PendingAction) => {
+    if (action === "complete") {
+      updateTask({ ...task, checked: !task.checked }, task.id);
+    } else if (action === "delete") {
+      deleteTask(id);
+    }
+  };
+
+  const requestAction = (action: PendingAction) => {
+    if (extraConfirmation) {
+      setPendingAction(action);
+    } else {
+      runAction(action);
+    }
+  };
+
+  const handleConfirm = () => {
+    runAction(pendingAction);
+    setPendingAction(null);
+  };
 
   return (
     <Card className="flex flex-col gap-3">
@@ -57,9 +85,7 @@ export default function TaskCard({ task }: TaskCardProps) {
             {!checked && (
               <button
                 type="button"
-                onClick={() =>
-                  updateTask({ ...task, checked: !task.checked }, task.id)
-                }
+                onClick={() => requestAction("complete")}
                 className="flex h-7.5 items-center justify-center rounded-2xl bg-[#39A304]"
               >
                 <Typography variant="subtitle" className="text-white">
@@ -70,7 +96,7 @@ export default function TaskCard({ task }: TaskCardProps) {
 
             <button
               type="button"
-              onClick={() => deleteTask(id)}
+              onClick={() => requestAction("delete")}
               className="flex h-7.5 items-center justify-center rounded-2xl bg-[#F05069]"
             >
               <Typography variant="subtitle" className="text-white">
@@ -80,6 +106,31 @@ export default function TaskCard({ task }: TaskCardProps) {
           </div>
         </>
       )}
+
+      <Modal
+        open={pendingAction !== null}
+        onClose={() => setPendingAction(null)}
+        title={
+          pendingAction === "delete" ? "Excluir atividade?" : "Concluir atividade?"
+        }
+        description={
+          pendingAction === "delete"
+            ? "Essa ação não pode ser desfeita."
+            : "Você poderá reabrir essa atividade depois, se precisar."
+        }
+        actions={[
+          {
+            label: "Cancelar",
+            variant: "secondary",
+            onPress: () => setPendingAction(null),
+          },
+          {
+            label: pendingAction === "delete" ? "Excluir" : "Concluir",
+            variant: pendingAction === "delete" ? "danger" : "primary",
+            onPress: handleConfirm,
+          },
+        ]}
+      />
     </Card>
   );
 }
