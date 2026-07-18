@@ -17,21 +17,25 @@ export function useTask() {
   };
 
   const addTask = async (data: FormTask) => {
-    dispatch(actions.addTask({ userId: user?.uid ?? "", formData: data }));
+    return dispatch(
+      actions.addTask({ userId: user?.uid ?? "", formData: data }),
+    ).unwrap();
   };
 
   const deleteTask = async (taskId: string) => {
-    dispatch(actions.deleteTask({ userId: user?.uid ?? "", taskId }));
+    return dispatch(
+      actions.deleteTask({ userId: user?.uid ?? "", taskId }),
+    ).unwrap();
   };
 
   const updateTask = async (formTask: FormTask, taskId: string) => {
-    dispatch(
+    return dispatch(
       actions.updateTask({
         userId: user?.uid ?? "",
         taskId,
         formData: formTask,
       }),
-    );
+    ).unwrap();
   };
 
   const {

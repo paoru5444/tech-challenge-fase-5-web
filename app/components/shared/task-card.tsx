@@ -2,11 +2,15 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import type { ITask } from "~/domain/entities/task";
 import { useTask } from "~/modules/home/hooks/useTask";
-import { selectExtraConfirmation } from "~/modules/setup/store/selector";
+import {
+  selectExtraConfirmation,
+  selectVisualFeedback,
+} from "~/modules/setup/store/selector";
 import { useAppSelector } from "~/store/hooks";
 import Card from "../ui/card";
 import { Checkbox } from "../ui/checkbox";
 import { ProgressBar } from "../ui/progress-bar";
+import { Toast } from "../ui/toast";
 import Typography from "../ui/typography";
 import Modal from "./modal";
 
@@ -20,14 +24,22 @@ export default function TaskCard({ task }: TaskCardProps) {
   const { id, title, description, checked, steps } = task;
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const { deleteTask, updateTask } = useTask();
   const extraConfirmation = useAppSelector(selectExtraConfirmation);
+  const visualFeedback = useAppSelector(selectVisualFeedback);
 
-  const runAction = (action: PendingAction) => {
-    if (action === "complete") {
-      updateTask({ ...task, checked: !task.checked }, task.id);
-    } else if (action === "delete") {
-      deleteTask(id);
+  const runAction = async (action: PendingAction) => {
+    try {
+      if (action === "complete") {
+        await updateTask({ ...task, checked: !task.checked }, task.id);
+        if (visualFeedback) setToastMessage("Atividade concluída!");
+      } else if (action === "delete") {
+        await deleteTask(id);
+        if (visualFeedback) setToastMessage("Atividade excluída!");
+      }
+    } catch {
+      // erro já é refletido no estado da store, sem feedback extra aqui
     }
   };
 
@@ -130,6 +142,12 @@ export default function TaskCard({ task }: TaskCardProps) {
             onPress: handleConfirm,
           },
         ]}
+      />
+
+      <Toast
+        open={toastMessage !== null}
+        message={toastMessage ?? ""}
+        onClose={() => setToastMessage(null)}
       />
     </Card>
   );

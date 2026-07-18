@@ -21,7 +21,6 @@ const preferencesTitleNames = {
   interfaceMode: "Interface",
   visualFeedback: "Feedback visual",
   extraConfirmation: "Confirmação extra",
-  soundConfirmation: "Conformação por som",
 };
 
 export default function ProfileScreen() {

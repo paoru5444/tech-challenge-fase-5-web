@@ -9,12 +9,17 @@ import Header from "~/components/ui/header";
 import { InputControl } from "~/components/ui/input-control";
 import { useTask } from "../hooks/useTask";
 import PageHeader from "~/components/shared/page-header";
+import { Toast } from "~/components/ui/toast";
 import Typography from "~/components/ui/typography";
+import { selectVisualFeedback } from "~/modules/setup/store/selector";
+import { useAppSelector } from "~/store/hooks";
 
 export default function Home() {
   const { control, errors, handleSubmit, addTask, getTasks, tasks } = useTask();
+  const visualFeedback = useAppSelector(selectVisualFeedback);
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     getTasks();
@@ -26,11 +31,14 @@ export default function Home() {
   );
 
   const onSubmit = handleSubmit(async (data) => {
-    await addTask(data);
-    setIsSheetOpen(false);
+    try {
+      await addTask(data);
+      if (visualFeedback) setToastMessage("Atividade criada!");
+      setIsSheetOpen(false);
+    } catch (error) {
+      console.log("onSubmit failed: ", error);
+    }
   });
-
-  console.log("tasks: ", tasks);
 
   return (
     <>
@@ -42,14 +50,14 @@ export default function Home() {
 
         <Banner
           title="Atividades pendentes"
-          value={String(tasks.length || "")}
+          value={String(pendingTasks.length || "")}
         />
 
         <div className="flex flex-col gap-4 pt-8">
           <Typography variant="subtitle">Minhas atividades</Typography>
 
-          {tasks.length > 0 &&
-            tasks.map((task) => <TaskCard task={task} key={task.id} />)}
+          {pendingTasks.length > 0 &&
+            pendingTasks.map((task) => <TaskCard task={task} key={task.id} />)}
         </div>
       </DashboardLayout>
 
@@ -87,6 +95,12 @@ export default function Home() {
 
         <Button text="Criar atividade" onPress={onSubmit} />
       </BottomSheet>
+
+      <Toast
+        open={toastMessage !== null}
+        message={toastMessage ?? ""}
+        onClose={() => setToastMessage(null)}
+      />
     </>
   );
 }
