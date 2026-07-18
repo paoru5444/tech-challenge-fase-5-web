@@ -64,9 +64,9 @@ export default function Home() {
       <button
         type="button"
         onClick={() => setIsSheetOpen(true)}
-        className="fixed right-5 bottom-20 z-20 flex h-12.5 w-12.5 items-center justify-center rounded-full bg-[#F67653] md:bottom-5"
+        className="fixed right-5 bottom-20 z-20 flex h-18 w-18 items-center justify-center rounded-full bg-[#F67653] md:bottom-5"
       >
-        <Plus color="#FFFFFF" size={28} />
+        <Plus color="#FFFFFF" size={40} />
       </button>
 
       <BottomSheet open={isSheetOpen} onClose={() => setIsSheetOpen(false)}>
