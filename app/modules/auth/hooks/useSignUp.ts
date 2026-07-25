@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import type * as z from "zod";
-import { type IUserCredentials } from "~/domain/entities/user";
 import { signUpSchema } from "~/schemas/auth-schema";
 import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import * as actions from "../store/actions";
@@ -20,9 +19,11 @@ export function useSignUp() {
     navigate("/sign-in");
   }
 
-  async function signUp(credentials: IUserCredentials) {
+  async function signUp(data: SignUpForm) {
     try {
-      const result = await dispatch(actions.signUp(credentials));
+      const result = await dispatch(
+        actions.signUp({ ...data, age: Number(data.age) }),
+      );
 
       if (actions.signUp.fulfilled.match(result)) {
         navigate("/", {
@@ -41,6 +42,7 @@ export function useSignUp() {
   } = useForm<SignUpForm>({
     resolver: zodResolver(signUpSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },

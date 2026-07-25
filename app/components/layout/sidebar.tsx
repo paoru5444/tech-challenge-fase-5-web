@@ -1,10 +1,19 @@
 import { LogOut } from "lucide-react";
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { navGeralItems, navItems } from "./nav-items";
 import Divider from "../ui/divider";
 import Typography from "../ui/typography";
+import * as actions from "~/modules/auth/store/actions";
+import { useAppDispatch } from "~/store/hooks";
 
 export default function Sidebar() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    await dispatch(actions.logout());
+    navigate("/sign-in", { replace: true });
+  };
   return (
     <aside className="hidden w-64 shrink-0 flex-col justify-between border-r border-[#EAEAEA] bg-white px-4 py-6 contrast:border-black md:flex">
       <div>
@@ -72,6 +81,7 @@ export default function Sidebar() {
       <button
         type="button"
         className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[#8B3A42] hover:bg-[#F7EAEC]"
+        onClick={logout}
       >
         <LogOut size={20} />
         Sair da conta

@@ -17,12 +17,29 @@ export default function SignUpScreen() {
 
       <div className="flex flex-col">
         <InputControl
+          label="Digite seu nome"
+          placeholder="John Doe"
+          control={control}
+          error={errors["name"]}
+          name="name"
+        />
+
+        <InputControl
           label="Digite seu email"
           placeholder="john.doe@mail.com"
           autoCapitalize="none"
           control={control}
           error={errors["email"]}
           name="email"
+        />
+
+        <InputControl
+          label="Digite sua idade"
+          placeholder="30"
+          type="number"
+          control={control}
+          error={errors["age"]}
+          name="age"
         />
 
         <InputControl

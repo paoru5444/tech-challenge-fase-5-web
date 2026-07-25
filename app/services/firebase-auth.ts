@@ -3,6 +3,7 @@ import { auth } from "~/firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import type { User } from "firebase/auth";
 
@@ -26,9 +27,14 @@ export class FirebaseAuth {
     return toSerializableUser(res.user);
   }
 
-  async signUp({ email, password }: IUserCredentials) {
+  async signUp({ email, password, name, age }: IUserCredentials) {
     const res = await createUserWithEmailAndPassword(auth, email, password);
-    return toSerializableUser(res.user);
+
+    if (name) {
+      await updateProfile(res.user, { displayName: name });
+    }
+
+    return { ...toSerializableUser(res.user), displayName: name ?? null, age };
   }
 
   async logout() {
