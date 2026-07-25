@@ -1,4 +1,4 @@
-import { Home, ListChecks, User } from "lucide-react";
+import { Home, ListChecks, User, ClockCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 export interface NavItem {
   to: string;
@@ -8,11 +8,11 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { to: "/", label: "Início", icon: Home },
-  { to: "/historico", label: "Histórico", icon: ListChecks },
+  { to: "/tasks", label: "Atividades", icon: ClockCheck },
 ];
 
 export const navGeralItems: NavItem[] = [
-  { to: "/preferences", label: "Preferências", icon: Home },
+  { to: "/profile", label: "Perfil", icon: User },
   { to: "/setup", label: "Configurações", icon: ListChecks },
 ];
 
