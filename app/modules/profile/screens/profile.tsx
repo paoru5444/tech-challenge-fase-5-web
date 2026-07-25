@@ -1,14 +1,13 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
 import DashboardLayout from "~/components/layout/dashboard-layout";
-import PageHeader from "~/components/shared/page-header";
 import TitleDisplay from "~/components/shared/title-display";
 import Badge from "~/components/ui/badge";
 import Button from "~/components/ui/button";
 import Card from "~/components/ui/card";
 import Divider from "~/components/ui/divider";
-import { preferencesNames } from "~/constants/conts";
 import Typography from "~/components/ui/typography";
+import { preferencesNames } from "~/constants/conts";
 import * as actions from "~/modules/auth/store/actions";
 import { selectUser } from "~/modules/auth/store/selectors";
 import { selecPreferences } from "~/modules/setup/store/selector";
@@ -44,16 +43,21 @@ export default function ProfileScreen() {
 
   return (
     <DashboardLayout>
-      <PageHeader
-        title="Meu Perfil"
-        description="Suas informações e preferências salvas"
-      />
+      <div className="flex flex-col">
+        <Typography variant="h2">
+          Informações do <span className="text-[#F67653]">Perfil</span>
+        </Typography>
+
+        <Typography variant="body">
+          Suas informações e preferências salvas
+        </Typography>
+      </div>
 
       <Card>
         <TitleDisplay
           user={user}
-          title="João Lucas Pereira de Almeida"
-          description="40 anos"
+          title={user?.displayName ?? ""}
+          description={user?.age ? `${user?.age} anos` : ""}
         />
       </Card>
 
