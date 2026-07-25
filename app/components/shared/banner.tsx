@@ -4,9 +4,20 @@ interface BannerProps {
   value?: string;
   title: string;
   imageUrl?: string;
+  variant?: "default" | "history";
 }
 
-export default function Banner({ title, value, imageUrl }: BannerProps) {
+const variantBackground: Record<NonNullable<BannerProps["variant"]>, string> = {
+  default: "bg-[#E8825A]",
+  history: "bg-[#39A304]",
+};
+
+export default function Banner({
+  title,
+  value,
+  imageUrl,
+  variant = "default",
+}: BannerProps) {
   return (
     <div
       style={
@@ -14,8 +25,8 @@ export default function Banner({ title, value, imageUrl }: BannerProps) {
           ? { backgroundImage: `url(${imageUrl})`, backgroundSize: "cover" }
           : undefined
       }
-      className={`flex h-33.25 flex-col justify-around rounded-2xl px-7 py-4 ${
-        imageUrl ? "" : "bg-[#E8825A]"
+      className={`flex h-33.25 flex-1 flex-col justify-around rounded-2xl px-7 py-4 ${
+        imageUrl ? "" : variantBackground[variant]
       }`}
     >
       <div className="flex h-15 w-15 items-center justify-center self-end rounded-full bg-white/25 p-4">

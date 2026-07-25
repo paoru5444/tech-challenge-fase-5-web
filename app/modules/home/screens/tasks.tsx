@@ -1,26 +1,16 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router";
+import { useEffect } from "react";
 import DashboardLayout from "~/components/layout/dashboard-layout";
 import TaskCard from "~/components/shared/task-card";
 import Typography from "~/components/ui/typography";
 import { useTask } from "../hooks/useTask";
 
 export default function Tasks() {
-  const { getTasks, tasks } = useTask();
-  const navigate = useNavigate();
-  const [query, setQuery] = useState("");
+  const { getTasks, query, setQuery, filteredTasks, goToTaskDetails } =
+    useTask();
 
   useEffect(() => {
     getTasks();
   }, []);
-
-  const filteredTasks = useMemo(
-    () =>
-      tasks.filter((task) =>
-        task.title.toLowerCase().includes(query.toLowerCase()),
-      ),
-    [tasks, query],
-  );
 
   return (
     <DashboardLayout>
@@ -44,7 +34,7 @@ export default function Tasks() {
           <TaskCard
             task={task}
             key={task.id}
-            onPress={() => navigate(`/tasks/${task.id}`)}
+            onPress={() => goToTaskDetails(task)}
           />
         ))}
       </div>

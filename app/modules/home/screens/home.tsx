@@ -1,22 +1,30 @@
 import { Plus } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import DashboardLayout from "~/components/layout/dashboard-layout";
 import Banner from "~/components/shared/banner";
 import TaskCard from "~/components/shared/task-card";
 import { BottomSheet } from "~/components/ui/bottom-sheet";
 import Button from "~/components/ui/button";
-import Header from "~/components/ui/header";
 import { InputControl } from "~/components/ui/input-control";
-import { useTask } from "../hooks/useTask";
-import PageHeader from "~/components/shared/page-header";
 import { Toast } from "~/components/ui/toast";
 import Typography from "~/components/ui/typography";
 import { selectVisualFeedback } from "~/modules/setup/store/selector";
 import { useAppSelector } from "~/store/hooks";
+import { useTask } from "../hooks/useTask";
 
 export default function Home() {
-  const { control, errors, handleSubmit, addTask, getTasks, tasks } = useTask();
+  const {
+    control,
+    errors,
+    handleSubmit,
+    addTask,
+    getTasks,
+    pendingTasks,
+    completedTasks,
+    lastTasks,
+    goToTaskDetails,
+  } = useTask();
   const visualFeedback = useAppSelector(selectVisualFeedback);
   const navigate = useNavigate();
 
@@ -26,11 +34,6 @@ export default function Home() {
   useEffect(() => {
     getTasks();
   }, []);
-
-  const pendingTasks = useMemo(
-    () => tasks.filter((task) => task.checked === false) || [],
-    [tasks],
-  );
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -45,25 +48,42 @@ export default function Home() {
   return (
     <>
       <DashboardLayout>
-        <PageHeader
-          title="Atividades"
-          description="Suas metas e objetivos listados aqui"
-        />
+        <Typography variant="h2">
+          Organize suas atividades
+          <br />
+          com <span className="text-[#F67653]">SeniorEase</span>
+        </Typography>
 
-        <Banner
-          title="Atividades pendentes"
-          value={String(pendingTasks.length || "")}
-        />
+        <div className="flex flex-row gap-4">
+          <Banner
+            title="Tarefas Pendentes"
+            value={String(pendingTasks.length || "0")}
+          />
 
-        <div className="flex flex-col gap-4 pt-8">
-          <Typography variant="subtitle">Minhas atividades</Typography>
+          <Banner
+            title="Tarefas Concluidas"
+            value={String(completedTasks.length || "0")}
+            variant="history"
+          />
+        </div>
 
-          {pendingTasks.length > 0 &&
-            pendingTasks.map((task) => (
+        <div className="flex flex-col gap-3 pt-8">
+          <div className="flex flex-row items-center justify-between">
+            <Typography variant="subtitle">Últimas atividades</Typography>
+
+            <button type="button" onClick={() => navigate("/tasks")}>
+              <Typography variant="body" className="font-semibold text-[#F67653]">
+                Ver todas
+              </Typography>
+            </button>
+          </div>
+
+          {lastTasks.length > 0 &&
+            lastTasks.map((task) => (
               <TaskCard
                 task={task}
                 key={task.id}
-                onPress={() => navigate(`/tasks/${task.id}`)}
+                onPress={() => goToTaskDetails(task)}
               />
             ))}
         </div>
