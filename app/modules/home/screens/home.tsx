@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import DashboardLayout from "~/components/layout/dashboard-layout";
 import Banner from "~/components/shared/banner";
 import TaskCard from "~/components/shared/task-card";
@@ -17,6 +18,7 @@ import { useAppSelector } from "~/store/hooks";
 export default function Home() {
   const { control, errors, handleSubmit, addTask, getTasks, tasks } = useTask();
   const visualFeedback = useAppSelector(selectVisualFeedback);
+  const navigate = useNavigate();
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -57,7 +59,13 @@ export default function Home() {
           <Typography variant="subtitle">Minhas atividades</Typography>
 
           {pendingTasks.length > 0 &&
-            pendingTasks.map((task) => <TaskCard task={task} key={task.id} />)}
+            pendingTasks.map((task) => (
+              <TaskCard
+                task={task}
+                key={task.id}
+                onPress={() => navigate(`/tasks/${task.id}`)}
+              />
+            ))}
         </div>
       </DashboardLayout>
 

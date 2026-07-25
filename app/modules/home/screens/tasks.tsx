@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import DashboardLayout from "~/components/layout/dashboard-layout";
 import TaskCard from "~/components/shared/task-card";
 import Typography from "~/components/ui/typography";
@@ -6,6 +7,7 @@ import { useTask } from "../hooks/useTask";
 
 export default function Tasks() {
   const { getTasks, tasks } = useTask();
+  const navigate = useNavigate();
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -39,7 +41,11 @@ export default function Tasks() {
 
       <div className="flex flex-col gap-4 pt-8">
         {filteredTasks.map((task) => (
-          <TaskCard task={task} key={task.id} />
+          <TaskCard
+            task={task}
+            key={task.id}
+            onPress={() => navigate(`/tasks/${task.id}`)}
+          />
         ))}
       </div>
     </DashboardLayout>
