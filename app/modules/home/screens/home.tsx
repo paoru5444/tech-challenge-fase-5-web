@@ -91,6 +91,7 @@ export default function Home() {
 
       <button
         type="button"
+        aria-label="Criar nova atividade"
         onClick={() => setIsSheetOpen(true)}
         className="fixed right-5 bottom-20 z-20 flex h-18 w-18 items-center justify-center rounded-full bg-[#F67653] md:bottom-5"
       >
