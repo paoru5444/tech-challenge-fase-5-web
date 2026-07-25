@@ -5,7 +5,7 @@ import type { IUserRepository } from "../../repositories/user/user-repository";
 export class SignUp {
   constructor(private repository: IUserRepository) {}
 
-  async execute(credentials: IUserCredentials): Promise<IUser | void> {
+  async execute(credentials: IUserCredentials): Promise<IUser> {
     const isPasswordsValid = validatePassword(credentials);
 
     if (isPasswordsValid) {

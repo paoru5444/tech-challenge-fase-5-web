@@ -5,3 +5,10 @@
 # React Router
 /.react-router/
 /build/
+
+# Testing
+/playwright-report/
+/test-results/
+/.vercel/
+.vercel
+.env*
