@@ -4,8 +4,12 @@ import { useNavigate, useParams } from "react-router";
 import DashboardLayout from "~/components/layout/dashboard-layout";
 import Modal from "~/components/shared/modal";
 import Card from "~/components/ui/card";
+import { Toast } from "~/components/ui/toast";
 import Typography from "~/components/ui/typography";
-import { selectExtraConfirmation } from "~/modules/setup/store/selector";
+import {
+  selectExtraConfirmation,
+  selectVisualFeedback,
+} from "~/modules/setup/store/selector";
 import { useAppSelector } from "~/store/hooks";
 import { useTask } from "../hooks/useTask";
 
@@ -16,7 +20,9 @@ export default function TasksDetails() {
   const navigate = useNavigate();
   const { tasks, getTasks, updateTask, deleteTask } = useTask();
   const extraConfirmation = useAppSelector(selectExtraConfirmation);
+  const visualFeedback = useAppSelector(selectVisualFeedback);
   const [pendingAction, setPendingAction] = useState<PendingAction>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   useEffect(() => {
     getTasks();
@@ -29,11 +35,17 @@ export default function TasksDetails() {
 
     if (action === "complete") {
       await updateTask({ ...task, checked: !task.checked }, task.id);
+      if (visualFeedback) setToastMessage("Atividade concluída!");
     } else if (action === "delete") {
       await deleteTask(task.id);
+      if (visualFeedback) setToastMessage("Atividade excluída!");
     }
 
-    navigate("/", { replace: true });
+    if (visualFeedback) {
+      setTimeout(() => navigate("/", { replace: true }), 900);
+    } else {
+      navigate("/", { replace: true });
+    }
   };
 
   const requestAction = (action: PendingAction) => {
@@ -139,6 +151,12 @@ export default function TasksDetails() {
             onPress: handleConfirm,
           },
         ]}
+      />
+
+      <Toast
+        open={toastMessage !== null}
+        message={toastMessage ?? ""}
+        onClose={() => setToastMessage(null)}
       />
     </>
   );
