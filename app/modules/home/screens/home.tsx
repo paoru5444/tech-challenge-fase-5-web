@@ -9,9 +9,15 @@ import Button from "~/components/ui/button";
 import { InputControl } from "~/components/ui/input-control";
 import { Toast } from "~/components/ui/toast";
 import Typography from "~/components/ui/typography";
-import { selectVisualFeedback } from "~/modules/setup/store/selector";
-import { useAppSelector } from "~/store/hooks";
+import * as setupActions from "~/modules/setup/store/actions";
+import {
+  selectHasSeenWalkthrough,
+  selectVisualFeedback,
+} from "~/modules/setup/store/selector";
+import { useAppDispatch, useAppSelector } from "~/store/hooks";
 import { useTask } from "../hooks/useTask";
+import HelpButton from "~/components/shared/help-button";
+import HelpWalktrough from "~/components/shared/help-walktrough";
 
 export default function Home() {
   const {
@@ -30,10 +36,18 @@ export default function Home() {
 
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [showHelp, setShowHelp] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const hasSeenWalkthrough = useAppSelector(selectHasSeenWalkthrough);
 
   useEffect(() => {
     getTasks();
   }, []);
+
+  const finishWalkthrough = () => {
+    dispatch(setupActions.completeWalkthrough());
+  };
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -72,7 +86,10 @@ export default function Home() {
             <Typography variant="subtitle">Últimas atividades</Typography>
 
             <button type="button" onClick={() => navigate("/tasks")}>
-              <Typography variant="body" className="font-semibold text-[#F67653]">
+              <Typography
+                variant="body"
+                className="font-semibold text-[#F67653]"
+              >
                 Ver todas
               </Typography>
             </button>
@@ -86,6 +103,18 @@ export default function Home() {
                 onPress={() => goToTaskDetails(task)}
               />
             ))}
+
+          {lastTasks.length <= 0 && (
+            <HelpButton onPress={() => setShowHelp(true)} />
+          )}
+
+          <HelpWalktrough
+            onFinish={() => {
+              finishWalkthrough();
+              setShowHelp(false);
+            }}
+            visible={!hasSeenWalkthrough || showHelp}
+          />
         </div>
       </DashboardLayout>
 

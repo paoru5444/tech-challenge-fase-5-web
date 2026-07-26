@@ -1,6 +1,8 @@
-import { useMemo } from "react";
+import { ChevronRight, CircleHelp } from "lucide-react";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
 import DashboardLayout from "~/components/layout/dashboard-layout";
+import HelpWalktrough from "~/components/shared/help-walktrough";
 import TitleDisplay from "~/components/shared/title-display";
 import Badge from "~/components/ui/badge";
 import Button from "~/components/ui/button";
@@ -28,6 +30,7 @@ export default function ProfileScreen() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const [showHelp, setShowHelp] = useState(false);
 
   const logout = async () => {
     await dispatch(actions.logout());
@@ -60,6 +63,26 @@ export default function ProfileScreen() {
           description={user?.age ? `${user?.age} anos` : ""}
         />
       </Card>
+
+      <Card>
+        <button
+          type="button"
+          onClick={() => setShowHelp(true)}
+          className="flex w-full flex-row items-center justify-between"
+        >
+          <div className="flex flex-row items-center gap-2.5">
+            <CircleHelp size={20} color="#F67653" />
+            <Typography variant="subtitle">Como usar o app</Typography>
+          </div>
+
+          <ChevronRight size={20} color="#8A8783" />
+        </button>
+      </Card>
+
+      <HelpWalktrough
+        visible={showHelp}
+        onFinish={() => setShowHelp(false)}
+      />
 
       <Card className="flex flex-col gap-8">
         <TitleDisplay letter="P" title="Preferências ativas" />

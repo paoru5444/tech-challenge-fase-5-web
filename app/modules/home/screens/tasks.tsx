@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import DashboardLayout from "~/components/layout/dashboard-layout";
 import TaskCard from "~/components/shared/task-card";
 import Typography from "~/components/ui/typography";
 import { useTask } from "../hooks/useTask";
+import HelpButton from "~/components/shared/help-button";
+import HelpWalktrough from "~/components/shared/help-walktrough";
 
 export default function Tasks() {
   const { getTasks, query, setQuery, filteredTasks, goToTaskDetails } =
     useTask();
+  const [showHelp, setShowHelp] = useState(false);
 
   useEffect(() => {
     getTasks();
@@ -37,6 +40,17 @@ export default function Tasks() {
             onPress={() => goToTaskDetails(task)}
           />
         ))}
+
+        {filteredTasks.length <= 0 && (
+          <HelpButton onPress={() => setShowHelp(true)} />
+        )}
+
+        <HelpWalktrough
+          onFinish={() => {
+            setShowHelp(false);
+          }}
+          visible={showHelp}
+        />
       </div>
     </DashboardLayout>
   );
