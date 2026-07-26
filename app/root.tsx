@@ -8,7 +8,7 @@ import {
 } from "react-router";
 
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
+import { PersistGate } from 'redux-persist/lib/integration/react.js';
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -64,7 +64,9 @@ function AccessibilityGate({ children }: { children: React.ReactNode }) {
   return (
     <div
       data-contrast={contrastLevel === "high" ? "high" : undefined}
-      style={{ "--spacing": spacingScale[spacementSize] } as React.CSSProperties}
+      style={
+        { "--spacing": spacingScale[spacementSize] } as React.CSSProperties
+      }
     >
       {children}
     </div>
