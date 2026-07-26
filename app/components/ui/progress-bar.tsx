@@ -1,3 +1,4 @@
+import { useAnimationsEnabled } from "~/modules/setup/hooks/useAnimationsEnabled";
 import Typography from "./typography";
 
 type ProgressBarColor = "success" | "primary" | "danger";
@@ -27,6 +28,7 @@ export function ProgressBar({
   showLabel = false,
   className,
 }: ProgressBarProps) {
+  const animationsEnabled = useAnimationsEnabled();
   const clamped = Math.max(0, Math.min(100, progress));
 
   return (
@@ -37,7 +39,7 @@ export function ProgressBar({
       >
         <div
           style={{ width: `${clamped}%`, height, borderRadius: height / 2 }}
-          className={`transition-[width] duration-400 ${colorMap[color]}`}
+          className={`${animationsEnabled ? "transition-[width] duration-400" : ""} ${colorMap[color]}`}
         />
       </div>
 

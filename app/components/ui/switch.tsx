@@ -1,3 +1,5 @@
+import { useAnimationsEnabled } from "~/modules/setup/hooks/useAnimationsEnabled";
+
 interface SwitchProps {
   checked: boolean;
   onChange: (checked: boolean) => void;
@@ -5,6 +7,8 @@ interface SwitchProps {
 }
 
 export function Switch({ checked, onChange, disabled = false }: SwitchProps) {
+  const animationsEnabled = useAnimationsEnabled();
+
   return (
     <button
       type="button"
@@ -16,14 +20,14 @@ export function Switch({ checked, onChange, disabled = false }: SwitchProps) {
         event.stopPropagation();
         onChange(!checked);
       }}
-      className={`flex h-6 w-11 shrink-0 items-center rounded-full p-0.5 transition-colors disabled:opacity-50 ${
-        checked ? "bg-[#39A304]" : "bg-[#C4C4C4] contrast:bg-black"
-      }`}
+      className={`flex h-6 w-11 shrink-0 items-center rounded-full p-0.5 disabled:opacity-50 ${
+        animationsEnabled ? "transition-colors duration-150" : ""
+      } ${checked ? "bg-[#39A304]" : "bg-[#C4C4C4] contrast:bg-black"}`}
     >
       <span
-        className={`h-5 w-5 rounded-full bg-white shadow transition-transform ${
-          checked ? "translate-x-5" : "translate-x-0"
-        }`}
+        className={`h-5 w-5 rounded-full bg-white shadow ${
+          animationsEnabled ? "transition-transform duration-150" : ""
+        } ${checked ? "translate-x-5" : "translate-x-0"}`}
       />
     </button>
   );

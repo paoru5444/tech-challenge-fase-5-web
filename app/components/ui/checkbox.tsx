@@ -1,3 +1,4 @@
+import { useAnimationsEnabled } from "~/modules/setup/hooks/useAnimationsEnabled";
 import Typography from "./typography";
 
 interface CheckboxProps {
@@ -21,6 +22,9 @@ export function Checkbox({
   size = 20,
   className,
 }: CheckboxProps) {
+  const animationsEnabled = useAnimationsEnabled();
+  const transitionClass = animationsEnabled ? "transition-colors duration-150" : "";
+
   return (
     <button
       type="button"
@@ -33,7 +37,7 @@ export function Checkbox({
     >
       <span
         style={{ width: size, height: size, fontSize: size * 0.7 }}
-        className={`flex items-center justify-center rounded border-[1.5px] ${
+        className={`flex items-center justify-center rounded border-[1.5px] ${transitionClass} ${
           checked
             ? "border-[#3B82F6] bg-[#3B82F6]"
             : "border-[#E5E1DC] bg-white contrast:border-black"
@@ -46,7 +50,7 @@ export function Checkbox({
         <Typography
           as="span"
           variant="body"
-          className={`ml-2 shrink text-left leading-5 ${
+          className={`ml-2 shrink text-left leading-5 ${transitionClass} ${
             disabled
               ? "text-[#B0ADA7] contrast:text-black"
               : checked && strikethroughWhenChecked
