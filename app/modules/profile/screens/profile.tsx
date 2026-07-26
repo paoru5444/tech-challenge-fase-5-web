@@ -38,7 +38,7 @@ export default function ProfileScreen() {
   };
 
   const preferencesList = useMemo(() => {
-    const { feedback, ...rest } = preferences;
+    const { feedback, hasSeenWalkthrough, ...rest } = preferences;
     const normalizedPreferences = { ...rest, ...feedback };
 
     return Object.entries(normalizedPreferences);
@@ -79,10 +79,7 @@ export default function ProfileScreen() {
         </button>
       </Card>
 
-      <HelpWalktrough
-        visible={showHelp}
-        onFinish={() => setShowHelp(false)}
-      />
+      <HelpWalktrough visible={showHelp} onFinish={() => setShowHelp(false)} />
 
       <Card className="flex flex-col gap-8">
         <TitleDisplay letter="P" title="Preferências ativas" />
