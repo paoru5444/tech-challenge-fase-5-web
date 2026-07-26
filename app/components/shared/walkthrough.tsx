@@ -39,7 +39,7 @@ export default function Walkthrough({
   }
 
   return (
-    <div className="flex flex-1 flex-col justify-between gap-8 pb-4">
+    <div className="flex flex-1 flex-col justify-between gap-8 pb-12">
       {step.image && (
         <div className="flex h-135 w-full items-center justify-center bg-[#FDF4F0]">
           <img
