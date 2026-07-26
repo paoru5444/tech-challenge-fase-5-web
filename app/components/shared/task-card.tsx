@@ -17,8 +17,11 @@ export default function TaskCard({ task, onPress }: TaskCardProps) {
         onClick={onPress}
         className="flex w-full flex-row items-center justify-between"
       >
-        <div className="flex flex-col items-start gap-1">
-          <Typography variant="subtitle" className={checked ? "line-through" : ""}>
+        <div className="flex min-w-0 flex-1 flex-col gap-1 items-start">
+          <Typography
+            variant="subtitle"
+            className={checked ? "line-through" : ""}
+          >
             {title}
           </Typography>
           <Typography

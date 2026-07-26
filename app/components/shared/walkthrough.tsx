@@ -41,11 +41,13 @@ export default function Walkthrough({
   return (
     <div className="flex flex-1 flex-col justify-between gap-8 pb-4">
       {step.image && (
-        <img
-          src={step.image}
-          alt={step.title}
-          className="h-70 w-full object-contain"
-        />
+        <div className="flex h-135 w-full items-center justify-center bg-[#FDF4F0]">
+          <img
+            src={step.image}
+            alt={step.title}
+            className="h-95 w-full object-contain"
+          />
+        </div>
       )}
 
       {!step.image && Icon && (
@@ -54,36 +56,38 @@ export default function Walkthrough({
         </div>
       )}
 
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-3 px-6">
-          <Typography variant="h2" className="text-center">
-            {step.title}
-          </Typography>
+      <div className="flex flex-col gap-24">
+        <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-3 px-6">
+            <Typography variant="h2" className="text-center">
+              {step.title}
+            </Typography>
 
-          <Typography variant="body" className="text-center">
-            {step.description}
-          </Typography>
+            <Typography variant="body" className="text-center">
+              {step.description}
+            </Typography>
+          </div>
+
+          <div className="flex flex-row items-center justify-center gap-2">
+            {steps.map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 rounded-full ${
+                  index === stepIndex
+                    ? "w-5 bg-[#F67653]"
+                    : "w-2 bg-[#EAEAEA] contrast:bg-black"
+                }`}
+              />
+            ))}
+          </div>
         </div>
 
-        <div className="flex flex-row items-center justify-center gap-2">
-          {steps.map((_, index) => (
-            <div
-              key={index}
-              className={`h-2 rounded-full ${
-                index === stepIndex
-                  ? "w-5 bg-[#F67653]"
-                  : "w-2 bg-[#EAEAEA] contrast:bg-black"
-              }`}
-            />
-          ))}
+        <div className="px-6">
+          <Button
+            text={isLastStep ? finishLabel : nextLabel}
+            onPress={handlePress}
+          />
         </div>
-      </div>
-
-      <div className="px-6">
-        <Button
-          text={isLastStep ? finishLabel : nextLabel}
-          onPress={handlePress}
-        />
       </div>
     </div>
   );

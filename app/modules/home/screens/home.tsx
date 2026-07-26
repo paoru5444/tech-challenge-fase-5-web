@@ -1,6 +1,8 @@
 import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import bannerCompletedImage from "~/assets/banner-completed.png";
+import bannerPendingImage from "~/assets/banner-pending.png";
 import DashboardLayout from "~/components/layout/dashboard-layout";
 import Banner from "~/components/shared/banner";
 import TaskCard from "~/components/shared/task-card";
@@ -9,12 +11,8 @@ import Button from "~/components/ui/button";
 import { InputControl } from "~/components/ui/input-control";
 import { Toast } from "~/components/ui/toast";
 import Typography from "~/components/ui/typography";
-import * as setupActions from "~/modules/setup/store/actions";
-import {
-  selectHasSeenWalkthrough,
-  selectVisualFeedback,
-} from "~/modules/setup/store/selector";
-import { useAppDispatch, useAppSelector } from "~/store/hooks";
+import { selectVisualFeedback } from "~/modules/setup/store/selector";
+import { useAppSelector } from "~/store/hooks";
 import { useTask } from "../hooks/useTask";
 import HelpButton from "~/components/shared/help-button";
 import HelpWalktrough from "~/components/shared/help-walktrough";
@@ -38,16 +36,9 @@ export default function Home() {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
 
-  const dispatch = useAppDispatch();
-  const hasSeenWalkthrough = useAppSelector(selectHasSeenWalkthrough);
-
   useEffect(() => {
     getTasks();
   }, []);
-
-  const finishWalkthrough = () => {
-    dispatch(setupActions.completeWalkthrough());
-  };
 
   const onSubmit = handleSubmit(async (data) => {
     try {
@@ -72,12 +63,14 @@ export default function Home() {
           <Banner
             title="Tarefas Pendentes"
             value={String(pendingTasks.length || "0")}
+            imageUrl={bannerPendingImage}
           />
 
           <Banner
             title="Tarefas Concluidas"
             value={String(completedTasks.length || "0")}
             variant="history"
+            imageUrl={bannerCompletedImage}
           />
         </div>
 
@@ -110,10 +103,9 @@ export default function Home() {
 
           <HelpWalktrough
             onFinish={() => {
-              finishWalkthrough();
               setShowHelp(false);
             }}
-            visible={!hasSeenWalkthrough || showHelp}
+            visible={showHelp}
           />
         </div>
       </DashboardLayout>
